@@ -5,7 +5,7 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
   {
     question: "How long does a typical project take?",
-    answer: "Every project is unique, but most standard websites take about 4 to 8 weeks from our kickoff call to launch. If you need something more complex, like a custom web app or an e-commerce platform, it might take a bit longer. I'll always give you a clear timeline before we start!"
+    answer: "Every project is unique, but most standard websites take about 3 to 4 weeks from our kickoff call to launch. If you need something more complex, like a custom web app or an e-commerce platform, it might take a bit longer. I'll always give you a clear timeline before we start!"
   },
   {
     question: "What does your pricing look like?",
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "What platforms and technologies do you use?",
-    answer: "I specialize in building fast, scalable websites using modern tech like React, Next.js, Tailwind CSS, and TypeScript. For e-commerce, I love working with Shopify. I always choose the right tool for the job to make sure your site is blindingly fast and easy for you to manage."
+    answer: "I specialize in building fast, scalable websites using modern tool like Framer, and Wordpress, and tech like React, Next.js, Tailwind CSS, and TypeScript. For e-commerce, I love working with Shopify. I always choose the right tool for the job to make sure your site is blindingly fast and easy for you to manage."
   },
   {
     question: "Will I be able to update the website myself?",
