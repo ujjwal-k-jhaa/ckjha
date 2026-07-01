@@ -1,71 +1,69 @@
-import { ArrowUpRight, Globe } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
-export default function Footer() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleScrollToSection = (id: string) => {
-    if (location.pathname !== '/') {
-      navigate(`/#${id}`);
-      // The scroll will be handled by a useEffect in Home or we can just let the browser handle the hash
-    } else {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
-
+export function Footer() {
+  const currentYear = new Date().getFullYear();
+  
   return (
-    <footer className="bg-slate-900 text-slate-400 pt-16 pb-8 text-center text-sm relative z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-3 gap-8 text-left mb-16">
-          <div>
-            <div className="font-bold text-2xl tracking-tight text-white mb-4">CK Jha<span className="text-blue-500">.</span></div>
-            <p className="text-slate-400 max-w-xs leading-relaxed">
-              Strategic web design for businesses that want to turn traffic into revenue.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-white font-semibold mb-4 uppercase tracking-wider text-xs">Navigation</h4>
-            <ul className="space-y-3">
-              <li><button onClick={() => handleScrollToSection('framework')} className="hover:text-blue-400 transition-colors">Framework</button></li>
-              <li><button onClick={() => handleScrollToSection('services')} className="hover:text-blue-400 transition-colors">Services</button></li>
-              <li><button onClick={() => handleScrollToSection('strategy-call')} className="hover:text-blue-400 transition-colors">Strategy Call</button></li>
+    <footer className="bg-neutral-950 pt-16 pb-8 px-6 border-t border-neutral-900 relative z-10 font-switzer">
+      <div className="max-w-7xl mx-auto flex flex-col gap-16">
+        
+        <div className="flex flex-col md:flex-row justify-between gap-12 md:gap-24">
+          <div className="flex gap-12 md:gap-24">
+            <div>
+              <h4 className="text-white font-medium mb-6">Navigation</h4>
+            <ul className="flex flex-col gap-4">
+              <li>
+                <Link to="/#work" className="text-neutral-400 hover:text-brand transition-colors">Work</Link>
+              </li>
+              <li>
+                <Link to="/#services" className="text-neutral-400 hover:text-brand transition-colors">Services</Link>
+              </li>
             </ul>
           </div>
+          
           <div>
-            <h4 className="text-white font-semibold mb-4 uppercase tracking-wider text-xs">Contact</h4>
-            <ul className="space-y-3">
-              <li><a href="mailto:mail@ckjha.com" className="hover:text-blue-400 transition-colors flex items-center gap-2"><ArrowUpRight size={14} /> mail@ckjha.com</a></li>
-              <li className="flex items-center gap-2"><Globe size={14} /> Partnering with ambitious brands globally</li>
+            <h4 className="text-white font-medium mb-6">Social</h4>
+            <ul className="flex flex-col gap-4">
+              <li>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-1 text-neutral-400 hover:text-brand transition-colors">
+                  Twitter <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-1 text-neutral-400 hover:text-brand transition-colors">
+                  LinkedIn <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </li>
             </ul>
+          </div>
+          </div>
+          
+          <div className="md:text-right flex flex-col md:items-end">
+            <h3 className="text-3xl font-medium text-white mb-3 tracking-tight">Ready to start?</h3>
+            <p className="text-neutral-400 mb-8 max-w-sm font-light">Let's discuss your project and see how we can build something great together.</p>
+            <a href="https://cal.com/ukjha/scopecall" target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden inline-flex items-center gap-2 text-neutral-950 bg-brand transition-all px-6 py-3 rounded-full font-medium hover:scale-105 hover:shadow-[0_0_20px_rgba(83,211,102,0.4)]">
+              <div className="absolute inset-0 bg-[#183725] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
+              <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-white transition-colors duration-500">
+                Book a call <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </span>
+            </a>
           </div>
         </div>
         
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p>© {new Date().getFullYear()}. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors" aria-label="Twitter">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <a href="https://www.linkedin.com/in/ckjhaa/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
-              </svg>
-            </a>
+        <div className="w-full flex items-center justify-center py-4 md:py-8 overflow-hidden pointer-events-none select-none">
+          <span className="text-[18vw] leading-none font-display font-bold tracking-tighter text-neutral-800/40">
+            CK Jha.
+          </span>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-neutral-900 text-sm text-neutral-500 gap-4">
+          <p>&copy; {currentYear} CK Jha. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-neutral-300 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-neutral-300 transition-colors">Terms</a>
           </div>
         </div>
-      </div>
-      
-      {/* Massive Footer Logo */}
-      <div className="mt-12 w-full flex justify-center pointer-events-none select-none">
-        <h1 className="text-[18vw] font-black leading-none tracking-tighter text-slate-800/50 whitespace-nowrap">
-          CK JHA.
-        </h1>
       </div>
     </footer>
   );

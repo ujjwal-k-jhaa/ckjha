@@ -1,20 +1,33 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import CaseStudies from './pages/CaseStudies';
-import CaseStudyDetail from './pages/CaseStudyDetail';
-import Footer from './components/Footer';
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+import { CosmicBackground } from "./components/CosmicBackground";
+import { Home } from "./pages/Home";
+import { Projects } from "./pages/Projects";
+import { CaseStudy } from "./pages/CaseStudy";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 export default function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
-        </Routes>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen relative flex flex-col">
+        <CosmicBackground />
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<CaseStudy />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
