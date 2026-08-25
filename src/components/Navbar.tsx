@@ -1,141 +1,160 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { MoreHorizontal, X, ArrowUpRight, Menu } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { pathname } = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
+      setIsMenuOpen(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Case-Studies", href: "/projects" }
-  ];
+  // Close menu when clicking a link
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setIsMobileMenuOpen(false);
+  };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    setMobileMenuOpen(false);
-    if (pathname === '/' && href.startsWith('/#')) {
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    closeMenu();
+    if (location.pathname === '/') {
       e.preventDefault();
-      const id = href.substring(2);
-      const element = document.getElementById(id);
+      const element = document.querySelector(hash);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const yOffset = -120; // Offset for the fixed navbar
+        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        window.history.pushState(null, '', hash);
       }
     }
   };
 
   return (
     <>
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`sticky top-0 z-50 w-full transition-all duration-500 ${
-          scrolled ? "bg-neutral-950/70 backdrop-blur-md border-b border-white/10 shadow-lg" : "bg-transparent border-b border-transparent"
-        }`}
-      >
-        <nav className={`mx-auto max-w-7xl px-6 flex items-center justify-between transition-all duration-500 ${scrolled ? "py-4" : "py-6"}`}>
-          <div className="flex-1">
-            <Link to="/" className="flex items-center gap-2 group w-fit">
-              <div className={`w-8 h-8 flex items-center justify-center transition-all group-hover:scale-105 overflow-hidden`}>
-                <img src="https://i.ibb.co/SDkfVt2h/Untitled-June-30-2026-at-11-24-03-1.png" alt="CK Jha" className="w-full h-full object-contain" />
-              </div>
-              <span className={`font-display font-medium tracking-tight transition-all duration-300 block text-lg text-white`}>
-                CK Jha.
+      <header className="fixed top-0 inset-x-0 z-50 py-6 px-6 pointer-events-none flex justify-center">
+        {/* Desktop & Mobile Pill */}
+        <motion.div 
+          layout
+          className={`flex items-center rounded-full shadow-sm px-2 py-2 pointer-events-auto overflow-hidden transition-all duration-300 ${isScrolled ? 'bg-white/70 backdrop-blur-md border border-white/20' : 'bg-white border border-zinc-200'}`}
+          initial={false}
+        >
+          <Link to="/" className="flex items-center" onClick={closeMenu}>
+            <motion.div layout className="flex items-center gap-3 pl-2 shrink-0">
+              <img
+                src="https://i.ibb.co/RT6cdqQ8/Ck-Jha-image.png"
+                alt="CK Jha"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className={`text-sm font-bold text-zinc-900 tracking-tight transition-all duration-300 ${isScrolled ? 'pr-4 border-r border-zinc-100' : 'pr-6 md:pr-4'}`}>
+                CK Jha
               </span>
-            </Link>
-          </div>
+            </motion.div>
+          </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex flex-1 justify-center items-center gap-8">
-            <div className={`flex items-center gap-1`}>
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  to={link.href} 
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className={`text-sm font-medium transition-all px-4 py-2 rounded-full hover:text-brand text-neutral-300 hover:bg-neutral-800/50`}
+          {/* Desktop Links */}
+          <AnimatePresence mode="popLayout">
+            {(!isScrolled || isMenuOpen) && (
+              <motion.nav 
+                key="nav-links"
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 'auto' }}
+                exit={{ opacity: 0, width: 0 }}
+                transition={{ duration: 0.2 }}
+                className="hidden md:flex items-center gap-6 text-sm font-bold text-zinc-800 px-6 shrink-0 whitespace-nowrap"
+              >
+                <Link to="/#work" className="hover:text-black transition-colors" onClick={(e) => handleAnchorClick(e, '#work')}>Work</Link>
+                <Link to="/#services" className="hover:text-black transition-colors" onClick={(e) => handleAnchorClick(e, '#services')}>Services</Link>
+                <Link to="/#pricing" className="hover:text-black transition-colors" onClick={(e) => handleAnchorClick(e, '#pricing')}>Pricing</Link>
+                <Link to="/blog" className="hover:text-black transition-colors" onClick={closeMenu}>Blog</Link>
+              </motion.nav>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence mode="popLayout">
+            {(!isScrolled || isMenuOpen) ? (
+              <motion.div 
+                key="contact-btn"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                className="hidden md:flex shrink-0 pr-1 ml-4 md:ml-0 items-center gap-2"
+              >
+                <a
+                  href="https://cal.com/ck-jhaa/project-scope-call"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-zinc-200 px-5 py-2 text-sm font-bold hover:bg-zinc-50 transition-colors text-black shrink-0 whitespace-nowrap"
+                  onClick={closeMenu}
                 >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-          
-          <div className="hidden md:flex flex-1 justify-end items-center">
-            <a 
-              href="https://cal.com/ukjha/scopecall" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative overflow-hidden text-sm font-medium transition-all rounded-full hover:scale-105 flex items-center justify-center hover:shadow-[0_0_15px_rgba(83,211,102,0.4)] ${
-                scrolled 
-                  ? "bg-brand text-neutral-950 px-5 py-2.5" 
-                  : "bg-brand text-neutral-950 px-6 py-3"
-              }`}
-            >
-              <div className="absolute inset-0 bg-[#183725] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
-              <span className="relative z-10 group-hover:text-white transition-colors duration-500">Start a project</span>
-            </a>
-          </div>
+                  Contact
+                </a>
+              </motion.div>
+            ) : (
+              <motion.button 
+                key="more-btn"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setIsMenuOpen(true)}
+                className="hidden md:flex items-center justify-center w-8 h-8 rounded-full hover:bg-zinc-100 transition-colors mr-1 shrink-0 group relative overflow-hidden"
+              >
+                <div className="flex gap-0.5 group-hover:gap-1 transition-all duration-300">
+                  <motion.div animate={{ y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0 }} className="w-1 h-1 bg-zinc-600 rounded-full" />
+                  <motion.div animate={{ y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }} className="w-1 h-1 bg-zinc-600 rounded-full" />
+                  <motion.div animate={{ y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }} className="w-1 h-1 bg-zinc-600 rounded-full" />
+                </div>
+              </motion.button>
+            )}
+          </AnimatePresence>
 
-          {/* Mobile Toggle */}
-          <div className="md:hidden flex-1 flex justify-end">
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden flex items-center pr-2 shrink-0">
             <button 
-              className={`p-2 rounded-full transition-colors text-white hover:bg-neutral-800`}
-              onClick={() => setMobileMenuOpen(true)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-1 rounded-full hover:bg-zinc-100 transition-colors text-zinc-900"
             >
-              <Menu className="w-5 h-5" />
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-        </nav>
-      </motion.div>
+        </motion.div>
+      </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] bg-neutral-950 px-6 py-8 flex flex-col"
+            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl md:hidden pt-32 px-6 flex flex-col gap-8"
           >
-            <div className="flex justify-between items-center mb-12">
-              <Link to="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <div className={`w-8 h-8 flex items-center justify-center overflow-hidden`}>
-                  <img src="https://i.ibb.co/SDkfVt2h/Untitled-June-30-2026-at-11-24-03-1.png" alt="CK Jha" className="w-full h-full object-contain" />
-                </div>
-                <span className="text-xl font-display font-medium tracking-tight text-white">
-                  CK Jha.
-                </span>
-              </Link>
-              <button 
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-neutral-400 hover:text-brand"
+            <nav className="flex flex-col gap-6 text-2xl font-medium tracking-tight text-zinc-900">
+              <Link to="/#work" onClick={(e) => handleAnchorClick(e, '#work')}>Work</Link>
+              <Link to="/#services" onClick={(e) => handleAnchorClick(e, '#services')}>Services</Link>
+              <Link to="/#pricing" onClick={(e) => handleAnchorClick(e, '#pricing')}>Pricing</Link>
+              <Link to="/blog" onClick={closeMenu}>Blog</Link>
+            </nav>
+            <div className="mt-8">
+              <a
+                href="https://cal.com/ck-jhaa/project-scope-call"
+                target="_blank" rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-full bg-black text-white px-8 py-4 font-bold text-lg"
+                onClick={closeMenu}
               >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            
-            <div className="flex flex-col gap-6 text-3xl font-display font-medium">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  to={link.href} 
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="text-neutral-400 hover:text-brand transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+                Book a call
+              </a>
             </div>
           </motion.div>
         )}

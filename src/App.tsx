@@ -3,31 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
-import { CosmicBackground } from "./components/CosmicBackground";
-import { Home } from "./pages/Home";
-import { Projects } from "./pages/Projects";
-import { CaseStudy } from "./pages/CaseStudy";
-import { ScrollToTop } from "./components/ScrollToTop";
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Home } from './pages/Home';
+import { BlogPost } from './pages/BlogPost';
+import { BlogList } from './pages/BlogList';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen relative flex flex-col">
-        <CosmicBackground />
-        <Navbar />
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<CaseStudy />} />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+      </Routes>
     </BrowserRouter>
   );
 }

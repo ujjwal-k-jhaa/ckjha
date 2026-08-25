@@ -1,6 +1,6 @@
 {
-  "name": "CK Jha - Premium Web Design",
-  "description": "Modern and premium portfolio website for Web Designer CK Jha.",
+  "name": "Launchfolio Clone",
+  "description": "A premium web design portfolio website inspired by Launchfolio.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
