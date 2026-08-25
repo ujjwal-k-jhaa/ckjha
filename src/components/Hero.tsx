@@ -16,7 +16,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white shadow-sm border border-zinc-200 text-xs font-semibold text-zinc-700 mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-              Available for August'25
+              Available for Last Quarter'26
             </motion.div>
 
             <motion.h1
@@ -63,12 +63,12 @@ export function Hero() {
           </div>
 
           {/* Right Content - Images */}
-          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full mt-12 lg:mt-0">
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] w-full mt-12 lg:mt-0">
             <motion.div
               initial={{ opacity: 0, y: 150, scale: 0.8, rotate: 0 }}
               animate={{ opacity: 1, y: 0, scale: 1, rotate: 12 }}
               transition={{ delay: 0.3, duration: 0.8, type: 'spring', bounce: 0.4 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] md:w-[320px] z-0 ml-16 md:ml-28 mt-4 md:mt-12 flex flex-col items-center"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] sm:w-[240px] md:w-[320px] z-0 ml-10 sm:ml-16 md:ml-28 mt-4 md:mt-12 flex flex-col items-center"
             >
               <img src="https://iili.io/CtG4mQI.md.png" alt="The Archetype" className="w-full h-auto object-contain drop-shadow-2xl" />
             </motion.div>
@@ -77,7 +77,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 150, scale: 0.8, rotate: 0 }}
               animate={{ opacity: 1, y: 0, scale: 1, rotate: -8 }}
               transition={{ delay: 0.4, duration: 0.8, type: 'spring', bounce: 0.4 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[240px] md:w-[320px] z-10 -ml-16 md:-ml-28 -mt-8 md:-mt-12 flex flex-col items-center"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] sm:w-[240px] md:w-[320px] z-10 -ml-10 sm:-ml-16 md:-ml-28 -mt-6 sm:-mt-8 md:-mt-12 flex flex-col items-center"
             >
               <img src="https://iili.io/CtG4yBt.md.png" alt="Apex" className="w-full h-auto object-contain drop-shadow-2xl" />
             </motion.div>
@@ -86,7 +86,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 250, scale: 0.6, rotate: 0 }}
               animate={{ opacity: 1, y: 0, scale: 1, rotate: 2 }}
               transition={{ delay: 0.5, duration: 0.8, type: 'spring', bounce: 0.5 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[480px] z-20 flex flex-col items-center"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[300px] md:w-[480px] z-20 flex flex-col items-center"
             >
               <img src="https://iili.io/CtG6H4n.md.png" alt="Aroma Solar" className="w-full h-auto object-contain drop-shadow-2xl" />
             </motion.div>

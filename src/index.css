@@ -4,6 +4,7 @@
 @theme {
   --font-sans: "Switzer", sans-serif;
   --font-display: "Inter Display", "InterDisplay", sans-serif;
+  --font-signature: "Sacramento", cursive;
 }
 
 @layer base {

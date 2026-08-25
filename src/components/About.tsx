@@ -68,7 +68,7 @@ export function About() {
             
             <FadeIn delay={0.4}>
               <div className="pt-8 flex justify-center md:justify-start">
-                <div className="font-display font-medium text-5xl md:text-6xl opacity-80 -rotate-6 ml-4">CK Jha</div>
+                <div className="font-signature font-normal text-6xl md:text-7xl opacity-80 -rotate-6 ml-4">ck jha</div>
               </div>
             </FadeIn>
           </div>

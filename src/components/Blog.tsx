@@ -10,7 +10,7 @@ export function Blog() {
     <section className="py-32 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-end mb-16">
-          <h2 className="text-5xl md:text-7xl font-medium tracking-tighter leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tighter leading-tight">
             <span className="text-zinc-400">From my blog,</span><br/>
             design insights.
           </h2>
